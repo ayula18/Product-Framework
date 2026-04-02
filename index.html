@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The 4-Axis Product Tradeoff Framework</title>
+  <meta name="description" content="An interactive 3D visualization of the product development tradeoff framework. Every visible constraint hides a compounding capability. Your team's EQ determines which sacrifice is survivable." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <!-- Animated Grid Background (covers full page except graph section) -->
+  <div id="shapegrid-bg"></div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-dot"></div>
+  </div>
+
+  <!-- Section 1: Hero -->
+  <section id="hero" class="section">
+    <h1 class="hero-title" id="hero-title">The 4-axis product tradeoff framework</h1>
+    <p class="hero-prepared-by" id="hero-prepared-by">Prepared By — <strong>Ayush Lahoti</strong></p>
+    <p class="hero-subtitle" id="hero-subtitle">
+      Every product leader knows the tradeoff. Money, time, quality — pick two.<br />
+      But what if the real cost of that choice is something you can't see?
+    </p>
+
+    <!-- Section 2: Classic Iron Triangle Cards -->
+    <div class="iron-triangle-heading">
+      <h2>The classic tradeoff. You already know this.</h2>
+    </div>
+
+    <div class="concept-cards" id="concept-cards">
+      <!-- Fast + Cheap -->
+      <div class="concept-card" data-glow="blue">
+        <svg class="concept-icon" viewBox="0 0 24 24">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+        </svg>
+        <div class="concept-title">Fast + Cheap</div>
+        <p class="concept-body">If a project needs to be done quickly and on a tight budget, the scope or quality must be reduced.</p>
+      </div>
+
+      <!-- Fast + Good -->
+      <div class="concept-card" data-glow="amber">
+        <svg class="concept-icon" viewBox="0 0 24 24">
+          <path d="M6 3h12l4 6-10 12L2 9l4-6z" />
+          <path d="M2 9h20M12 21V9M6 3l6 6M18 3l-6 6" />
+        </svg>
+        <div class="concept-title">Fast + Good</div>
+        <p class="concept-body">If you want high-quality deliverables on a tight deadline, you must increase the cost by adding more resources.</p>
+      </div>
+
+      <!-- Cheap + Good -->
+      <div class="concept-card" data-glow="teal">
+        <svg class="concept-icon" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
+        </svg>
+        <div class="concept-title">Cheap + Good</div>
+        <p class="concept-body">If you want a high-quality product with a strict budget, the timeline must be extended with fewer resources.</p>
+      </div>
+    </div>
+
+    <div class="bridge-text">
+      <p>This framework has guided product decisions for decades. But it's incomplete...</p>
+    </div>
+
+    <div class="scroll-indicator" id="scroll-indicator">
+      <span>Explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- Section 3: Transition -->
+  <section id="transition-section" class="section">
+    <div class="transition-card glass-card">
+      <h2>What if we add a new dimension?</h2>
+      <p>The classic triangle treats resources as fixed. But teams aren't machines. A team that deeply cares about their work — that has high emotional quotient — fundamentally changes the constraint surface.</p>
+      <p>EQ doesn't add a fourth point to the triangle. It reshapes the entire space. It acts as a <strong>multiplier</strong> on every axis, expanding what's possible when it's high and contracting it when it's low.</p>
+      <p>And each visible resource hides a shadow capability that only appears through sustained investment. Money hides Optionality. Time hides Learning. Quality hides Craft. EQ hides Resilience.</p>
+    </div>
+  </section>
+
+  <!-- Section 4: 3D Graph -->
+  <section id="graph-section" class="section">
+    <div id="graph-container"></div>
+
+    <!-- Section 5: Product Stage Selector -->
+    <div id="stage-selector" class="stage-selector">
+      <span class="stage-selector-label">Product Stage</span>
+      <div class="stage-buttons"></div>
+    </div>
+
+    <!-- Section 6: Slider Panel -->
+    <div id="slider-panel" class="slider-panel glass-card">
+      <!-- IQ Foundation Slider -->
+      <div class="slider-row iq-row">
+        <label for="iq-slider" class="slider-label" style="color: rgba(255,255,255,0.7)">
+          Team capability (IQ)
+        </label>
+        <div class="slider-track-container">
+          <input type="range" id="iq-slider" class="custom-slider iq-slider" min="20" max="100" value="75" style="--slider-color: rgba(255,255,255,0.5)" />
+        </div>
+        <div class="iq-value-display" id="iq-value-display">75</div>
+      </div>
+
+      <div class="slider-divider"></div>
+
+      <!-- EQ Slider -->
+      <div class="slider-row eq-row">
+        <label for="eq-slider" class="slider-label" style="color: #8B5CF6">
+          EQ <span class="eq-badge">multiplier</span>
+        </label>
+        <div class="slider-track-container">
+          <input type="range" id="eq-slider" class="custom-slider" min="0" max="100" value="50" style="--slider-color: #8B5CF6" />
+        </div>
+        <div class="shadow-info" style="color: rgba(139, 92, 246, 0.6)">
+          Resilience: <span id="val-resilience">35</span>
+        </div>
+      </div>
+      <div class="eq-hint">Higher EQ expands what's possible across all axes</div>
+
+      <div class="slider-divider"></div>
+
+      <!-- Money Slider -->
+      <div class="slider-row">
+        <label for="money-slider" class="slider-label" style="color: #F59E0B">Money</label>
+        <div class="slider-track-container">
+          <input type="range" id="money-slider" class="custom-slider" min="0" max="100" value="70" style="--slider-color: #F59E0B" />
+        </div>
+        <div class="shadow-info" style="color: rgba(245, 158, 11, 0.6)">
+          Optionality: <span id="val-optionality">87</span>
+        </div>
+      </div>
+
+      <!-- Time Slider -->
+      <div class="slider-row">
+        <label for="time-slider" class="slider-label" style="color: #3B82F6">Time</label>
+        <div class="slider-track-container">
+          <input type="range" id="time-slider" class="custom-slider" min="0" max="100" value="70" style="--slider-color: #3B82F6" />
+        </div>
+        <div class="shadow-info" style="color: rgba(59, 130, 246, 0.6)">
+          Learning: <span id="val-learning">87</span>
+        </div>
+      </div>
+
+      <!-- Quality Slider -->
+      <div class="slider-row">
+        <label for="quality-slider" class="slider-label" style="color: #14B8A6">Quality</label>
+        <div class="slider-track-container">
+          <input type="range" id="quality-slider" class="custom-slider" min="0" max="100" value="70" style="--slider-color: #14B8A6" />
+        </div>
+        <div class="shadow-info" style="color: rgba(20, 184, 166, 0.6)">
+          Craft: <span id="val-craft">22</span>
+        </div>
+      </div>
+
+      <!-- EQ Obsessive Warning (hidden by default) -->
+      <div id="eq-obsessive-warning" class="eq-obsessive-warning" style="display: none;">
+        <div class="eq-warning-badge">Obsessive zone</div>
+        <div class="eq-warning-card">
+          <h4>Approaching obsessive passion</h4>
+          <p>EQ beyond this threshold risks crossing from harmonious passion into obsessive territory. Teams that care too much without boundaries burn out, over-polish, and lose the ability to ship. Pixar's Toy Story 2 team had 30% of staff develop repetitive strain injuries. Duke Nukem Forever spent 15 years in development hell from unchecked perfectionism. Ensure your team's investment is sustainable, not compulsive. Set boundaries. Ship imperfect. Come back and fix.</p>
+        </div>
+      </div>
+
+      <div class="slider-controls">
+        <div></div>
+        <button id="btn-reset-sliders" class="reset-btn-small">Reset</button>
+      </div>
+    </div>
+
+    <!-- Axis Tooltip -->
+    <div id="axis-tooltip" class="axis-tooltip" style="display: none;"></div>
+  </section>
+
+  <!-- Section 7: Analysis Panel -->
+  <section id="analysis-section" class="section">
+    <!-- Balanced State Message -->
+    <div class="balanced-panel glass-card" id="balanced-panel" style="display: none;">
+      <div class="analysis-header" style="color: #A3A3A3">Balanced configuration</div>
+      <div class="analysis-body">
+        <p>All three axes are roughly balanced. No clear sacrifice. This is stable but may mean you're not pushing hard enough on any single dimension. High-performing teams often deliberately lean into one or two axes and accept the tradeoff on the third.</p>
+      </div>
+    </div>
+
+    <!-- Over-allocated Warning -->
+    <div class="warning-panel glass-card" id="warning-panel" style="display: none; border: 1px solid rgba(239, 68, 68, 0.3);">
+      <div class="analysis-header" style="color: #EF4444">
+        <span class="axis-dot" style="background: #EF4444; box-shadow: 0 0 10px #EF4444"></span>
+        Over-allocated
+      </div>
+      <div class="analysis-body">
+        <p>Your configuration exceeds what's sustainable at your current EQ level. Something will break. Either increase EQ (invest in team care and intent) or reduce one of the three resource axes. The iron triangle is real. EQ can expand it but not eliminate it.</p>
+      </div>
+    </div>
+
+    <!-- Dynamic Sacrifice Analysis -->
+    <div class="analysis-panel glass-card" id="analysis-panel" style="display: none;">
+      <div id="eq-assessment-badge" class="eq-assessment-badge"></div>
+      <div class="analysis-header" id="analysis-header"></div>
+      <div class="analysis-body">
+        <div class="analysis-block" id="analysis-visible">
+          <h3>Visible Cost</h3>
+          <p></p>
+        </div>
+        <div class="analysis-block" id="analysis-hidden">
+          <h3>Hidden Cost</h3>
+          <p></p>
+        </div>
+        <div class="analysis-block" id="analysis-eq">
+          <h3>EQ Factor</h3>
+          <p></p>
+        </div>
+        <div class="analysis-block" id="analysis-works">
+          <h3>When This Works</h3>
+          <p></p>
+        </div>
+        <div class="analysis-block" id="analysis-kills">
+          <h3>When This Kills You</h3>
+          <p></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Card Container (dynamic) -->
+    <div id="action-card-container"></div>
+  </section>
+
+  <!-- Section 8: Case Study Cards -->
+  <section id="casestudy-section" class="section">
+    <h2 class="section-heading">See it in action</h2>
+    <p class="section-subheading">Click a card to see its shape on the graph above.</p>
+    <div class="casestudy-grid"></div>
+  </section>
+
+  <!-- Section 9: Self-Assessment Diagnostic -->
+  <section id="assessment-section" class="section">
+    <h2 class="section-heading">Where does your team sit?</h2>
+    <p class="section-subheading">Answer a few questions. See your shape.</p>
+    <div class="assessment-questionnaire"></div>
+  </section>
+
+  <!-- Section 10: Decision Rule -->
+  <section id="decision-section" class="section">
+    <div class="decision-card glass-card" id="decision-card">
+      <h2>The Decision Rule</h2>
+      <p>
+        Before you sacrifice an axis, assess your team's EQ. High-EQ teams can temporarily sacrifice quality 
+        without losing craft. They carry the standard internally and self-correct. Low-EQ teams cannot recover 
+        from the same sacrifice. <strong>Your team's emotional quotient determines which tradeoff is survivable 
+        and which causes permanent damage.</strong>
+      </p>
+      <p class="decision-closing">
+        Every visible constraint hides a compounding capability. Know what you are really giving up.
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 11: Footer -->
+  <footer id="footer">
+    <p>Framework developed through collaborative first-principles thinking.</p>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
