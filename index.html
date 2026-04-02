@@ -79,103 +79,112 @@
   <section id="transition-section" class="section">
     <div class="transition-card glass-card">
       <h2>What if we add a new dimension?</h2>
-      <p>The classic triangle treats resources as fixed. But teams aren't machines. A team that deeply cares about their work — that has high emotional quotient — fundamentally changes the constraint surface.</p>
+      <p>The classic triangle treats resources as fixed. But teams aren't machines. A team that deeply cares about their work and has a high emotional quotient fundamentally changes the constraint surface.</p>
       <p>EQ doesn't add a fourth point to the triangle. It reshapes the entire space. It acts as a <strong>multiplier</strong> on every axis, expanding what's possible when it's high and contracting it when it's low.</p>
       <p>And each visible resource hides a shadow capability that only appears through sustained investment. Money hides Optionality. Time hides Learning. Quality hides Craft. EQ hides Resilience.</p>
     </div>
   </section>
 
-  <!-- Section 4: 3D Graph -->
+  <!-- Section 4: 3D Graph + Controls (side by side) -->
   <section id="graph-section" class="section">
-    <div id="graph-container"></div>
-
-    <!-- Section 5: Product Stage Selector -->
-    <div id="stage-selector" class="stage-selector">
-      <span class="stage-selector-label">Product Stage</span>
-      <div class="stage-buttons"></div>
-    </div>
-
-    <!-- Section 6: Slider Panel -->
-    <div id="slider-panel" class="slider-panel glass-card">
-      <!-- IQ Foundation Slider -->
-      <div class="slider-row iq-row">
-        <label for="iq-slider" class="slider-label" style="color: rgba(255,255,255,0.7)">
-          Team capability (IQ)
-        </label>
-        <div class="slider-track-container">
-          <input type="range" id="iq-slider" class="custom-slider iq-slider" min="20" max="100" value="75" style="--slider-color: rgba(255,255,255,0.5)" />
-        </div>
-        <div class="iq-value-display" id="iq-value-display">75</div>
+    <h2 class="playground-title">The Framework Playground</h2>
+    <div class="graph-layout">
+      <!-- Left: 3D Graph -->
+      <div class="graph-left">
+        <div id="graph-container"></div>
       </div>
 
-      <div class="slider-divider"></div>
+      <!-- Right: Stage Selector + Sliders -->
+      <div class="graph-right">
+        <!-- Product Stage Selector -->
+        <div id="stage-selector" class="stage-selector">
+          <span class="stage-selector-label">Product Stage</span>
+          <div class="stage-buttons"></div>
+        </div>
 
-      <!-- EQ Slider -->
-      <div class="slider-row eq-row">
-        <label for="eq-slider" class="slider-label" style="color: #8B5CF6">
-          EQ <span class="eq-badge">multiplier</span>
-        </label>
-        <div class="slider-track-container">
-          <input type="range" id="eq-slider" class="custom-slider" min="0" max="100" value="50" style="--slider-color: #8B5CF6" />
-        </div>
-        <div class="shadow-info" style="color: rgba(139, 92, 246, 0.6)">
-          Resilience: <span id="val-resilience">35</span>
-        </div>
-      </div>
-      <div class="eq-hint">Higher EQ expands what's possible across all axes</div>
+        <!-- Slider Panel -->
+        <div id="slider-panel" class="slider-panel glass-card">
+          <!-- IQ Foundation Slider -->
+          <div class="slider-row iq-row">
+            <label for="iq-slider" class="slider-label" style="color: rgba(255,255,255,0.7)">
+              Team capability (IQ)
+            </label>
+            <div class="slider-track-container">
+              <input type="range" id="iq-slider" class="custom-slider iq-slider" min="20" max="100" value="75" style="--slider-color: rgba(255,255,255,0.5)" />
+            </div>
+            <div class="iq-value-display" id="iq-value-display">75</div>
+          </div>
 
-      <div class="slider-divider"></div>
+          <div class="slider-divider"></div>
 
-      <!-- Money Slider -->
-      <div class="slider-row">
-        <label for="money-slider" class="slider-label" style="color: #F59E0B">Money</label>
-        <div class="slider-track-container">
-          <input type="range" id="money-slider" class="custom-slider" min="0" max="100" value="70" style="--slider-color: #F59E0B" />
-        </div>
-        <div class="shadow-info" style="color: rgba(245, 158, 11, 0.6)">
-          Optionality: <span id="val-optionality">87</span>
-        </div>
-      </div>
+          <!-- EQ Slider -->
+          <div class="slider-row eq-row">
+            <label for="eq-slider" class="slider-label" style="color: #8B5CF6">
+              EQ <span class="eq-badge">multiplier</span>
+            </label>
+            <div class="slider-track-container">
+              <input type="range" id="eq-slider" class="custom-slider" min="0" max="100" value="50" style="--slider-color: #8B5CF6" />
+            </div>
+            <div class="shadow-info" style="color: rgba(139, 92, 246, 0.6)">
+              Resilience: <span id="val-resilience">35</span>
+            </div>
+          </div>
+          <div class="eq-hint">Higher EQ expands what's possible across all axes</div>
 
-      <!-- Time Slider -->
-      <div class="slider-row">
-        <label for="time-slider" class="slider-label" style="color: #3B82F6">Time</label>
-        <div class="slider-track-container">
-          <input type="range" id="time-slider" class="custom-slider" min="0" max="100" value="70" style="--slider-color: #3B82F6" />
-        </div>
-        <div class="shadow-info" style="color: rgba(59, 130, 246, 0.6)">
-          Learning: <span id="val-learning">87</span>
-        </div>
-      </div>
+          <div class="slider-divider"></div>
 
-      <!-- Quality Slider -->
-      <div class="slider-row">
-        <label for="quality-slider" class="slider-label" style="color: #14B8A6">Quality</label>
-        <div class="slider-track-container">
-          <input type="range" id="quality-slider" class="custom-slider" min="0" max="100" value="70" style="--slider-color: #14B8A6" />
-        </div>
-        <div class="shadow-info" style="color: rgba(20, 184, 166, 0.6)">
-          Craft: <span id="val-craft">22</span>
-        </div>
-      </div>
+          <!-- Money Slider -->
+          <div class="slider-row">
+            <label for="money-slider" class="slider-label" style="color: #F59E0B">Money</label>
+            <div class="slider-track-container">
+              <input type="range" id="money-slider" class="custom-slider" min="0" max="100" value="70" style="--slider-color: #F59E0B" />
+            </div>
+            <div class="shadow-info" style="color: rgba(245, 158, 11, 0.6)">
+              Optionality: <span id="val-optionality">87</span>
+            </div>
+          </div>
 
-      <!-- EQ Obsessive Warning (hidden by default) -->
-      <div id="eq-obsessive-warning" class="eq-obsessive-warning" style="display: none;">
-        <div class="eq-warning-badge">Obsessive zone</div>
-        <div class="eq-warning-card">
-          <h4>Approaching obsessive passion</h4>
-          <p>EQ beyond this threshold risks crossing from harmonious passion into obsessive territory. Teams that care too much without boundaries burn out, over-polish, and lose the ability to ship. Pixar's Toy Story 2 team had 30% of staff develop repetitive strain injuries. Duke Nukem Forever spent 15 years in development hell from unchecked perfectionism. Ensure your team's investment is sustainable, not compulsive. Set boundaries. Ship imperfect. Come back and fix.</p>
-        </div>
-      </div>
+          <!-- Time Slider -->
+          <div class="slider-row">
+            <label for="time-slider" class="slider-label" style="color: #3B82F6">Time</label>
+            <div class="slider-track-container">
+              <input type="range" id="time-slider" class="custom-slider" min="0" max="100" value="70" style="--slider-color: #3B82F6" />
+            </div>
+            <div class="shadow-info" style="color: rgba(59, 130, 246, 0.6)">
+              Learning: <span id="val-learning">87</span>
+            </div>
+          </div>
 
-      <div class="slider-controls">
-        <div class="preset-buttons">
-          <button class="preset-btn" data-preset="bootstrapped">Bootstrapped startup</button>
-          <button class="preset-btn" data-preset="vc-sprint">VC sprint</button>
-          <button class="preset-btn" data-preset="craftsperson">Craftsperson's studio</button>
-          <button class="preset-btn" data-preset="death-march">Death march</button>
+          <!-- Quality Slider -->
+          <div class="slider-row">
+            <label for="quality-slider" class="slider-label" style="color: #14B8A6">Quality</label>
+            <div class="slider-track-container">
+              <input type="range" id="quality-slider" class="custom-slider" min="0" max="100" value="70" style="--slider-color: #14B8A6" />
+            </div>
+            <div class="shadow-info" style="color: rgba(20, 184, 166, 0.6)">
+              Craft: <span id="val-craft">22</span>
+            </div>
+          </div>
+
+          <!-- EQ Obsessive Warning (hidden by default) -->
+          <div id="eq-obsessive-warning" class="eq-obsessive-warning" style="display: none;">
+            <div class="eq-warning-badge">Obsessive zone</div>
+            <div class="eq-warning-card">
+              <h4>Approaching obsessive passion</h4>
+              <p>EQ beyond this threshold risks crossing from harmonious passion into obsessive territory. Teams that care too much without boundaries burn out, over-polish, and lose the ability to ship. Pixar's Toy Story 2 team had 30% of staff develop repetitive strain injuries. Duke Nukem Forever spent 15 years in development hell from unchecked perfectionism. Ensure your team's investment is sustainable, not compulsive. Set boundaries. Ship imperfect. Come back and fix.</p>
+            </div>
+          </div>
+
+          <div class="slider-controls">
+            <div class="preset-buttons">
+              <button class="preset-btn" data-preset="bootstrapped">Bootstrapped startup</button>
+              <button class="preset-btn" data-preset="vc-sprint">VC sprint</button>
+              <button class="preset-btn" data-preset="craftsperson">Craftsperson's studio</button>
+              <button class="preset-btn" data-preset="death-march">Death march</button>
+            </div>
+            <button id="btn-reset-sliders" class="reset-btn-small">Reset</button>
+          </div>
         </div>
-        <button id="btn-reset-sliders" class="reset-btn-small">Reset</button>
       </div>
     </div>
 
@@ -183,7 +192,14 @@
     <div id="axis-tooltip" class="axis-tooltip" style="display: none;"></div>
   </section>
 
-  <!-- Section 7: Analysis Panel -->
+  <!-- Section 7: Self-Assessment Diagnostic -->
+  <section id="assessment-section" class="section">
+    <h2 class="section-heading">Where does your team sit?</h2>
+    <p class="section-subheading">Answer a few questions. See your shape.</p>
+    <div class="assessment-questionnaire"></div>
+  </section>
+
+  <!-- Section 8: Analysis Panel -->
   <section id="analysis-section" class="section">
     <!-- Balanced State Message -->
     <div class="balanced-panel glass-card" id="balanced-panel" style="display: none;">
@@ -236,12 +252,7 @@
     <div id="action-card-container"></div>
   </section>
 
-  <!-- Section 8: Self-Assessment Diagnostic -->
-  <section id="assessment-section" class="section">
-    <h2 class="section-heading">Where does your team sit?</h2>
-    <p class="section-subheading">Answer a few questions. See your shape.</p>
-    <div class="assessment-questionnaire"></div>
-  </section>
+
 
   <!-- Section 9: Case Study Cards -->
   <section id="casestudy-section" class="section">
