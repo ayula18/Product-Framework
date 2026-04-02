@@ -56,6 +56,7 @@ export class SliderManager {
     this.isAnimatingPresets = false;
     // Track active mode for back-to-manual
     this.activeMode = 'manual'; // 'manual' | 'stage' | 'casestudy' | 'assessment'
+    this.casestudyOverride = false; // When true, don't overwrite analysis panel
 
     // Action card callback
     this.onActionCardTrigger = null;
@@ -73,6 +74,9 @@ export class SliderManager {
         gsap.killTweensOf(this.targets);
         this.isAnimatingPresets = false;
         this.activeMode = 'manual';
+        this.casestudyOverride = false;
+        // Restore analysis block visibility
+        this._restoreAnalysisBlocks();
         
         this.targets[key] = parseFloat(e.target.value);
         this.updateSliderTrack(key);
@@ -89,6 +93,8 @@ export class SliderManager {
     if (resetBtn) {
       resetBtn.addEventListener('click', () => {
         this.activeMode = 'manual';
+        this.casestudyOverride = false;
+        this._restoreAnalysisBlocks();
         this.applyPreset(this.defaultValues);
         // Hide EQ warning
         this._hideEQWarning();
@@ -96,6 +102,26 @@ export class SliderManager {
         this.ironTriangle.hideComparisonVolume();
       });
     }
+
+    // Preset buttons (team archetypes)
+    const ARCHETYPE_PRESETS = {
+      'bootstrapped': { iq: 70, eq: 80, money: 20, time: 85, quality: 50 },
+      'vc-sprint':    { iq: 80, eq: 45, money: 90, time: 30, quality: 40 },
+      'craftsperson': { iq: 85, eq: 75, money: 40, time: 90, quality: 95 },
+      'death-march':  { iq: 75, eq: 25, money: 30, time: 15, quality: 30 },
+    };
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const presetKey = btn.dataset.preset;
+        const values = ARCHETYPE_PRESETS[presetKey];
+        if (values) {
+          this.activeMode = 'manual';
+          this.casestudyOverride = false;
+          this._restoreAnalysisBlocks();
+          this.applyPreset(values);
+        }
+      });
+    });
   }
 
   updateSliderTrack(key) {
@@ -200,7 +226,7 @@ export class SliderManager {
     const optionality = Math.round(100 * (1 - Math.exp(-0.03 * effectiveMoney)));
     const learning = Math.round(100 * (1 - Math.exp(-0.03 * effectiveTime)));
     const craft = Math.round(100 * Math.pow(effectiveQuality / 160, 1.8));
-    const resilience = Math.round(100 * Math.pow(eq / 100, 1.5));
+    const resilience = Math.round(100 * Math.pow(eqEffective / 100, 1.5));
 
     // Update DOM shadow numbers
     this.shadowValues.optionality.textContent = optionality;
@@ -244,8 +270,10 @@ export class SliderManager {
     this.labels.updateLabelValues('time', Math.round(time), learning);
     this.labels.updateLabelValues('quality', Math.round(quality), craft);
 
-    // 4. UI Panel Update
-    this.updateAnalysisPanels({ money, time, quality, eq, isOverAllocated });
+    // 4. UI Panel Update (skip if case study is overriding)
+    if (!this.casestudyOverride) {
+      this.updateAnalysisPanels({ money, time, quality, eq, isOverAllocated });
+    }
 
     // 5. Action card trigger
     if (this.onActionCardTrigger) {
@@ -259,6 +287,22 @@ export class SliderManager {
       warning.style.display = 'block';
       gsap.fromTo(warning, { opacity: 0 }, { opacity: 1, duration: 0.3 });
     }
+  }
+
+  _restoreAnalysisBlocks() {
+    // Restore analysis block names and visibility after case study override
+    const eqBlock = document.getElementById('analysis-eq');
+    const worksBlock = document.getElementById('analysis-works');
+    const killsBlock = document.getElementById('analysis-kills');
+    if (eqBlock) eqBlock.style.display = '';
+    if (worksBlock) worksBlock.style.display = '';
+    if (killsBlock) killsBlock.style.display = '';
+
+    const visH3 = document.querySelector('#analysis-visible h3');
+    const hidH3 = document.querySelector('#analysis-hidden h3');
+    if (visH3) visH3.textContent = 'Visible Cost';
+    if (hidH3) hidH3.textContent = 'Hidden Cost';
+    this.lastSacrificed = null; // force re-populate
   }
 
   _hideEQWarning() {

@@ -170,7 +170,7 @@ export class Axes {
    * @param {number} iqSlider - raw IQ slider value
    */
   setIQCeiling(eqSlider, iqSlider) {
-    const shouldShow = iqSlider < 40;
+    const shouldShow = iqSlider < 60;
     const iqFactor = iqSlider / 100;
     // Calculate the effective EQ position on the axis
     let eqForCalc = eqSlider;

@@ -56,6 +56,7 @@ function init() {
   // --- Case Studies ---
   caseStudies = new CaseStudies((caseStudy) => {
     sliderManager.activeMode = 'casestudy';
+    sliderManager.casestudyOverride = true;
     // Apply main values (use IQ=75 default for case studies)
     sliderManager.applyPreset({
       iq: 75,
@@ -134,6 +135,24 @@ function init() {
       document.getElementById('graph-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 500);
   });
+
+  // --- Bento Slider (Strategy vs Execution) ---
+  const bentoSlider = document.getElementById('bento-slider');
+  const bentoStrategyPct = document.getElementById('bento-strategy-pct');
+  const bentoExecutionPct = document.getElementById('bento-execution-pct');
+  const bentoStrategyCard = document.getElementById('bento-card-strategy');
+  const bentoExecutionCard = document.getElementById('bento-card-execution');
+  if (bentoSlider) {
+    bentoSlider.addEventListener('input', () => {
+      const v = parseInt(bentoSlider.value);
+      const e = 100 - v;
+      if (bentoStrategyPct) bentoStrategyPct.textContent = `${v}%`;
+      if (bentoExecutionPct) bentoExecutionPct.textContent = `${e}%`;
+      if (bentoStrategyCard) bentoStrategyCard.style.flexBasis = `${v}%`;
+      if (bentoExecutionCard) bentoExecutionCard.style.flexBasis = `${e}%`;
+      bentoSlider.style.background = `linear-gradient(to right, rgba(59, 130, 246, 0.5) ${v}%, rgba(255, 255, 255, 0.1) ${v}%)`;
+    });
+  }
 
   // --- Tooltip System ---
   tooltipSystem = new TooltipSystem();

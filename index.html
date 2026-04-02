@@ -24,8 +24,7 @@
     <h1 class="hero-title" id="hero-title">The 4-axis product tradeoff framework</h1>
     <p class="hero-prepared-by" id="hero-prepared-by">Prepared By — <strong>Ayush Lahoti</strong></p>
     <p class="hero-subtitle" id="hero-subtitle">
-      Every product leader knows the tradeoff. Money, time, quality — pick two.<br />
-      But what if the real cost of that choice is something you can't see?
+      Every product leader knows the tradeoff. Money, time, quality where they priotorize pick two.
     </p>
 
     <!-- Section 2: Classic Iron Triangle Cards -->
@@ -74,6 +73,7 @@
       <div class="scroll-arrow"></div>
     </div>
   </section>
+
 
   <!-- Section 3: Transition -->
   <section id="transition-section" class="section">
@@ -169,7 +169,12 @@
       </div>
 
       <div class="slider-controls">
-        <div></div>
+        <div class="preset-buttons">
+          <button class="preset-btn" data-preset="bootstrapped">Bootstrapped startup</button>
+          <button class="preset-btn" data-preset="vc-sprint">VC sprint</button>
+          <button class="preset-btn" data-preset="craftsperson">Craftsperson's studio</button>
+          <button class="preset-btn" data-preset="death-march">Death march</button>
+        </div>
         <button id="btn-reset-sliders" class="reset-btn-small">Reset</button>
       </div>
     </div>
@@ -231,18 +236,49 @@
     <div id="action-card-container"></div>
   </section>
 
-  <!-- Section 8: Case Study Cards -->
+  <!-- Section 8: Self-Assessment Diagnostic -->
+  <section id="assessment-section" class="section">
+    <h2 class="section-heading">Where does your team sit?</h2>
+    <p class="section-subheading">Answer a few questions. See your shape.</p>
+    <div class="assessment-questionnaire"></div>
+  </section>
+
+  <!-- Section 9: Case Study Cards -->
   <section id="casestudy-section" class="section">
     <h2 class="section-heading">See it in action</h2>
     <p class="section-subheading">Click a card to see its shape on the graph above.</p>
     <div class="casestudy-grid"></div>
   </section>
 
-  <!-- Section 9: Self-Assessment Diagnostic -->
-  <section id="assessment-section" class="section">
-    <h2 class="section-heading">Where does your team sit?</h2>
-    <p class="section-subheading">Answer a few questions. See your shape.</p>
-    <div class="assessment-questionnaire"></div>
+  <!-- Bento Section: Strategy vs Execution -->
+  <section id="bento-section" class="section">
+    <div class="bento-section-heading">
+      <h2>Strategy vs Execution</h2>
+      <p>Most teams over-index on one. The best teams find the ratio that fits their stage.</p>
+    </div>
+
+    <div class="bento-grid">
+      <div class="bento-card" data-glow="blue" id="bento-card-strategy">
+        <div class="bento-header">
+          <div class="bento-percent" id="bento-strategy-pct">70%</div>
+          <h3>Strategy</h3>
+        </div>
+        <div class="bento-body">Understanding the problem, validating the hypothesis, identifying the right market, and deciding what not to build.</div>
+      </div>
+      <div class="bento-card" data-glow="amber" id="bento-card-execution">
+        <div class="bento-header">
+          <div class="bento-percent" id="bento-execution-pct">30%</div>
+          <h3>Execution</h3>
+        </div>
+        <div class="bento-body">Building the product, shipping features, iterating on feedback, and scaling what works.</div>
+      </div>
+    </div>
+
+    <div class="bento-slider-wrap">
+      <span class="bento-slider-label">Strategy</span>
+      <input type="range" id="bento-slider" class="bento-slider" min="0" max="100" value="70" />
+      <span class="bento-slider-label">Execution</span>
+    </div>
   </section>
 
   <!-- Section 10: Decision Rule -->

@@ -77,6 +77,7 @@ body {
 /* All content above the grid bg */
 #loading-screen,
 #hero,
+#bento-section,
 #transition-section,
 #graph-section,
 #analysis-section,
@@ -360,6 +361,135 @@ body {
   line-height: 1.6;
   position: relative;
   z-index: 1;
+}
+
+/* --- Bento Section: Strategy vs Execution --- */
+#bento-section {
+  padding: 60px 40px 40px;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.bento-section-heading {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.bento-section-heading h2 {
+  font-family: var(--font-family);
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
+}
+
+.bento-section-heading p {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+.bento-grid {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.bento-card {
+  flex: 1;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  transition: all 0.5s var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-card[data-glow="blue"] {
+  border-color: rgba(59, 130, 246, 0.15);
+}
+.bento-card[data-glow="amber"] {
+  border-color: rgba(245, 158, 11, 0.15);
+}
+
+.bento-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.bento-percent {
+  font-family: var(--font-family);
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.bento-card[data-glow="blue"] .bento-percent {
+  color: var(--color-time-light);
+}
+.bento-card[data-glow="amber"] .bento-percent {
+  color: var(--color-money-light);
+}
+
+.bento-header h3 {
+  font-family: var(--font-family);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.bento-body {
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.bento-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.bento-slider-label {
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  min-width: 60px;
+  text-align: center;
+}
+
+.bento-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, rgba(59, 130, 246, 0.5) 70%, rgba(255, 255, 255, 0.1) 70%);
+  outline: none;
+  cursor: pointer;
+}
+
+.bento-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 /* --- Transition Section --- */
@@ -723,9 +853,11 @@ body {
 
 .slider-controls {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   margin-top: 24px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .reset-btn-small {
@@ -744,6 +876,36 @@ body {
   background: rgba(239, 68, 68, 0.1);
   border-color: rgba(239, 68, 68, 0.3);
   color: #EF4444;
+}
+
+/* --- Preset Buttons (Team Archetypes) --- */
+.preset-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.preset-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #9CA3AF;
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: var(--font-family);
+  white-space: nowrap;
+}
+
+.preset-btn:hover {
+  background: rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.3);
+  color: #C4B5FD;
+}
+
+.preset-btn:active {
+  transform: scale(0.97);
 }
 
 /* --- EQ Obsessive Warning --- */
@@ -1183,8 +1345,10 @@ body {
 }
 
 .assessment-axis-card {
-  background: rgba(17, 17, 17, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(15, 15, 15, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 32px;
 }
@@ -1230,16 +1394,49 @@ body {
   outline: none;
 }
 
-.assessment-pill:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.2);
+/* Color specific pill styling */
+.assessment-pill[data-axis="money"]:hover {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.3);
   color: #fff;
 }
+.assessment-pill[data-axis="money"].selected {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.5);
+  color: #FBBF24;
+}
 
-.assessment-pill.selected {
-  background: rgba(139, 92, 246, 0.12);
-  border-color: rgba(139, 92, 246, 0.4);
+.assessment-pill[data-axis="time"]:hover {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.3);
   color: #fff;
+}
+.assessment-pill[data-axis="time"].selected {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #60A5FA;
+}
+
+.assessment-pill[data-axis="quality"]:hover {
+  background: rgba(20, 184, 166, 0.08);
+  border-color: rgba(20, 184, 166, 0.3);
+  color: #fff;
+}
+.assessment-pill[data-axis="quality"].selected {
+  background: rgba(20, 184, 166, 0.15);
+  border-color: rgba(20, 184, 166, 0.5);
+  color: #2DD4BF;
+}
+
+.assessment-pill[data-axis="eq"]:hover {
+  background: rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.3);
+  color: #fff;
+}
+.assessment-pill[data-axis="eq"].selected {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.5);
+  color: #A78BFA;
 }
 
 .assessment-nav-btn {
@@ -1270,8 +1467,10 @@ body {
 
 /* Assessment Results */
 .assessment-results-card {
-  background: rgba(17, 17, 17, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(15, 15, 15, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 32px;
 }
