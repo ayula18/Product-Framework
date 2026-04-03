@@ -1294,18 +1294,33 @@ body {
 }
 
 .casestudy-card {
-  padding: 24px 28px;
+  padding: 28px 24px;
   cursor: pointer;
-  transition: all 0.3s var(--ease-out);
+  transition: all 0.35s var(--ease-out);
   display: flex;
   gap: 16px;
   position: relative;
+  overflow: hidden;
+}
+
+.casestudy-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
+  transition: background 0.35s ease;
+  border-radius: inherit;
 }
 
 .casestudy-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.casestudy-card:hover::after {
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.03) 100%);
 }
 
 .casestudy-card.active {
@@ -1323,13 +1338,42 @@ body {
 .casestudy-content {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.casestudy-header-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.casestudy-logo {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.casestudy-card:hover .casestudy-logo {
+  opacity: 0.9;
+}
+
+.casestudy-logo svg {
+  width: 100%;
+  height: 100%;
 }
 
 .casestudy-name {
   font-size: 1rem;
   font-weight: 500;
   color: var(--color-text-primary);
-  margin-bottom: 6px;
+  line-height: 1.3;
 }
 
 .casestudy-oneliner {
@@ -1337,33 +1381,46 @@ body {
   font-weight: 300;
   color: var(--color-text-secondary);
   line-height: 1.5;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  flex: 1;
 }
 
-.casestudy-values {
+.casestudy-bottom-row {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.casestudy-val {
+.casestudy-values {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.casestudy-pill {
+  font-size: 10px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
+  padding: 3px 8px;
+  border-radius: 10px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.casestudy-view-link {
   font-size: 11px;
   font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.04em;
-}
-
-.casestudy-values-muted .casestudy-val {
   color: rgba(255, 255, 255, 0.35);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+  letter-spacing: 0.02em;
 }
 
-.casestudy-comparison-label {
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin: 8px 0 4px;
+.casestudy-card:hover .casestudy-view-link {
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .back-to-manual-btn {
@@ -1524,10 +1581,10 @@ body {
   margin-top: 24px;
   width: 100%;
   padding: 12px;
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  border: 1px solid transparent;
   border-radius: 12px;
-  background: rgba(139, 92, 246, 0.08);
-  color: var(--color-eq-light);
+  background: transparent;
+  color: inherit;
   font-family: var(--font-family);
   font-size: 0.95rem;
   font-weight: 500;
@@ -1536,14 +1593,49 @@ body {
   outline: none;
 }
 
-.assessment-nav-btn:hover:not(:disabled) {
-  background: rgba(139, 92, 246, 0.15);
-  border-color: rgba(139, 92, 246, 0.5);
-}
-
 .assessment-nav-btn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
+}
+
+.assessment-nav-btn[data-axis="money"] {
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.08);
+  color: #FBBF24;
+}
+.assessment-nav-btn[data-axis="money"]:hover:not(:disabled) {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+.assessment-nav-btn[data-axis="time"] {
+  border-color: rgba(59, 130, 246, 0.3);
+  background: rgba(59, 130, 246, 0.08);
+  color: #60A5FA;
+}
+.assessment-nav-btn[data-axis="time"]:hover:not(:disabled) {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.assessment-nav-btn[data-axis="quality"] {
+  border-color: rgba(20, 184, 166, 0.3);
+  background: rgba(20, 184, 166, 0.08);
+  color: #2DD4BF;
+}
+.assessment-nav-btn[data-axis="quality"]:hover:not(:disabled) {
+  background: rgba(20, 184, 166, 0.15);
+  border-color: rgba(20, 184, 166, 0.5);
+}
+
+.assessment-nav-btn[data-axis="eq"] {
+  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(139, 92, 246, 0.08);
+  color: #A78BFA;
+}
+.assessment-nav-btn[data-axis="eq"]:hover:not(:disabled) {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.5);
 }
 
 /* Assessment Results */

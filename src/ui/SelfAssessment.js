@@ -110,9 +110,9 @@ export class SelfAssessment {
       card.appendChild(questionBlock);
     });
 
-    // Next / Finish button
     const navBtn = document.createElement('button');
     navBtn.className = 'assessment-nav-btn';
+    navBtn.dataset.axis = axisKey;
     navBtn.textContent = axisIndex < 3 ? 'Next →' : 'See Results';
     navBtn.disabled = true;
     navBtn.addEventListener('click', () => {

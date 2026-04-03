@@ -69,14 +69,8 @@ function init() {
     // Clear stage selector
     if (stageSelector) stageSelector.clearStage();
 
-    // Handle dual volume for SpaceX vs Boeing
-    if (caseStudy.isComparative && caseStudy.comparisonValues) {
-      setTimeout(() => {
-        sliderManager.showComparisonOverlay(caseStudy.comparisonValues);
-      }, 900); // After main preset animation completes
-    } else {
-      ironTriangle.hideComparisonVolume();
-    }
+    // No comparative case studies, hide comparison volume
+    ironTriangle.hideComparisonVolume();
 
     // Update analysis with lesson text
     const analysisPanel = document.getElementById('analysis-panel');
@@ -84,7 +78,7 @@ function init() {
       analysisPanel.style.display = 'block';
       const header = document.getElementById('analysis-header');
       if (header) {
-        header.innerHTML = `<span class="axis-dot" style="background: ${caseStudy.accent === 'split' ? '#8B5CF6' : caseStudy.accent}; box-shadow: 0 0 10px ${caseStudy.accent === 'split' ? '#8B5CF6' : caseStudy.accent}"></span>${caseStudy.name}`;
+        header.innerHTML = `<span class="axis-dot" style="background: ${caseStudy.accent}; box-shadow: 0 0 10px ${caseStudy.accent}"></span>${caseStudy.name}`;
         header.style.color = '#E5E5E5';
       }
       // Show lesson as content
